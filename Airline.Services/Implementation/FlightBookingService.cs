@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Airline.Domain;
 using Airline.Domain.enums;
@@ -13,10 +14,34 @@ namespace Airline.Services.Implementation
         private const int _defaultBaggageQuantitiy = 1;
         private const int _loyaltyMemberMaxBaggageQuantitiy = 2;
 
+        public decimal TotalFlightRevenue
+        {
+            get
+            {
+                var totalFlightRevenue = _flightDetails.Passengers.Sum(x => TotalBookingPrice(x.FirstName));
+                return totalFlightRevenue;
+            }
+        }
+
+
         public void BookFlight(FlightDetails flightDetails)
         {
             _flightDetails = flightDetails;
+            GrantAccessToPassengersIntoPlane(_flightDetails.Passengers);
         }
+
+        private void GrantAccessToPassengersIntoPlane(IEnumerable<PassengerDetails> passengers)
+        {
+            if (_flightDetails.AirPlaneDetails == null)
+                return;
+            var airplaneCount = _flightDetails.AirPlaneDetails.NumberOfSeats;
+            passengers.Take(airplaneCount).ToList().ForEach(
+                (p) =>
+                {
+                    p.CanBoardFlight = true;
+                });
+        }
+
 
         public decimal GetPassengerDiscount(string passengerName)
         {
@@ -25,7 +50,7 @@ namespace Airline.Services.Implementation
             return flightDiscount;
         }
 
-        public bool CanProceed()
+        public bool CanDepart()
         {
             var result = CalculateFlightPercentage();
             return result >= 75;

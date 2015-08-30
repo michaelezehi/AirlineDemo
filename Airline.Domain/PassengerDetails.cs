@@ -12,5 +12,7 @@ namespace Airline.Domain
         public bool IsUsingExtraBaggageAllowance { get; set; }
 
         public int Baggage { get; set; }
+
+        public bool CanBoardFlight { get; set; }
     }
 }

@@ -58,9 +58,9 @@ namespace Airline.Specs.FareCalculation
         public void ThenHeGetsADiscountOnHisFlightFare()
         {
             var discount = _flightBookingService.GetPassengerDiscount(_passengerUnderTest.FirstName);
-            Assert.AreEqual(40, discount);
+            Assert.AreEqual(100, discount);
             var totalCharge = _flightBookingService.TotalBookingPrice(_passengerUnderTest.FirstName);
-            Assert.AreEqual(110, totalCharge);
+            Assert.AreEqual(50, totalCharge);
         }
 
 

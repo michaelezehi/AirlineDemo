@@ -13,6 +13,7 @@ namespace Airline.Specs.CapacityCalculation
     {
         private readonly IFlightBookingService _flightBookingService;
         private FlightDetails _flightDetails;
+        private PassengerDetails _passengerUnderTest;
 
         public PlaneCapacity()
         {
@@ -36,7 +37,7 @@ namespace Airline.Specs.CapacityCalculation
         [Given(@"airplane details")]
         public void GivenAirplaneDetails(Table table)
         {
-           var airPlaneDetails = table.CreateInstance<AirPlaneDetails>();
+            var airPlaneDetails = table.CreateInstance<AirPlaneDetails>();
             _flightDetails.AirPlaneDetails = airPlaneDetails;
         }
 
@@ -46,11 +47,10 @@ namespace Airline.Specs.CapacityCalculation
             _flightBookingService.BookFlight(_flightDetails);
         }
 
-
         [Then(@"the airline cannot depart because of insufficient capacity")]
         public void ThenTheAirlineCannotDepartBecauseOfInsufficientCapacity()
         {
-            var hasCapacityToProceed = _flightBookingService.CanProceed();
+            var hasCapacityToProceed = _flightBookingService.CanDepart();
 
             Assert.IsFalse(hasCapacityToProceed);
         }
@@ -58,14 +58,38 @@ namespace Airline.Specs.CapacityCalculation
         [Then(@"the airline can depart to it's destination")]
         public void ThenTheAirlineCanDepartToItSDestination()
         {
-            var hasCapacityToProceed = _flightBookingService.CanProceed();
+            var hasCapacityToProceed = _flightBookingService.CanDepart();
 
             Assert.IsTrue(hasCapacityToProceed);
         }
 
+        [Then(@"the airline expected revenue should be (.*)")]
+        public void ThenTheAirlineExpectedRevenueShouldBe(decimal totalCost)
+        {
+            var flightTotalCost = _flightBookingService.TotalFlightRevenue;
+
+            Assert.AreEqual(totalCost, flightTotalCost);
+        }
 
 
 
+        [When(@"'(.*)' books his flight")]
+        public void WhenTriesToBookHisFlight(string passengerName)
+        {
+            _passengerUnderTest = _flightDetails.Passengers.FirstOrDefault(x => x.FirstName == passengerName);
+            _flightBookingService.BookFlight(_flightDetails);
+        }
 
+        [Then(@"he is denied access to the flight")]
+        public void ThenHeIsDeniedAccessToTheFlight()
+        {
+            var passengerAfterFlightIsBooked = _flightDetails.Passengers.First(x => x.FirstName == _passengerUnderTest.FirstName);
+            Assert.AreEqual(_passengerUnderTest.CanBoardFlight, passengerAfterFlightIsBooked.CanBoardFlight);
+
+            const int expectedPassengersDenialedAccessCount = 1;
+            var expectedCount = _flightDetails.Passengers.Count(x => !x.CanBoardFlight);
+            Assert.AreEqual(expectedPassengersDenialedAccessCount, expectedCount);
+        }
     }
+
 }

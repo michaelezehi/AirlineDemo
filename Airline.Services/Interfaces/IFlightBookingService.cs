@@ -6,10 +6,9 @@ namespace Airline.Services.Interfaces
     {
         void BookFlight(FlightDetails flightDetails);
         decimal GetPassengerDiscount(string passengerName);
-
-
         decimal TotalBookingPrice(string passengerName);
-        bool CanProceed();
+        bool CanDepart();
+        decimal TotalFlightRevenue { get; }
     }
 
 }

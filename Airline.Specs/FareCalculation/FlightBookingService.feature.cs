@@ -127,9 +127,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 19
 testRunner.Given("flight details", ((string)(null)), table2, "Given ");
 #line 22
-testRunner.And("a passenger \'Suzy\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("a passenger \'Jone\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
-testRunner.When("Suzy books a flight with 1 baggage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("Jone books a flight with 1 baggage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 24
 testRunner.Then("he gets a discount on his flight fare (total cost is TicketBasePrice minus Loyalt" +
                     "yPoints)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -160,9 +160,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 28
 testRunner.Given("flight details", ((string)(null)), table3, "Given ");
 #line 31
-testRunner.And("a passenger \'Jone\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("a passenger \'Suzy\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 32
-testRunner.When("Jone books a flight with 2 baggage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("Suzy books a flight with 2 baggage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 33
 testRunner.Then("he does not gets charged extra baggage fees", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -256,9 +256,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 53
 testRunner.Given("flight details", ((string)(null)), table6, "Given ");
 #line 56
-testRunner.And("a passenger \'Jone\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("a passenger \'Suzy\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 57
-testRunner.When("Jone books a flight with 3 baggage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("Suzy books a flight with 3 baggage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 58
 testRunner.Then("she  gets charged extra baggage fees excluding entitled allowance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

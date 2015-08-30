@@ -19,8 +19,8 @@ Scenario: A loyalty passenger gets a discount on their flights when they use the
 Given flight details
 		| Origin | Destination | TicketBasePrice | PassengerCost | PlaneCapacity |
 		| London | Dublin      | 150             | 100           | 100           |
-And a passenger 'Suzy'
-When Suzy books a flight with 1 baggage
+And a passenger 'Jone'
+When Jone books a flight with 1 baggage
 Then he gets a discount on his flight fare (total cost is TicketBasePrice minus LoyaltyPoints)
 
 
@@ -28,8 +28,8 @@ Scenario: A Loyalty member with two bagages and using their extra backage benefi
 Given flight details
 		| Origin | Destination | TicketBasePrice | PassengerCost | PlaneCapacity |
 		| London | Dublin      | 150             | 100           | 100           |
-And  a passenger 'Jone'
-When Jone books a flight with 2 baggage
+And  a passenger 'Suzy'
+When Suzy books a flight with 2 baggage
 Then he does not gets charged extra baggage fees
 
 
@@ -53,8 +53,8 @@ Scenario: A Loyalty member with more than 2 baggage
 Given flight details
 		| Origin | Destination | TicketBasePrice | PassengerCost | PlaneCapacity |
 		| London | Dublin      | 150             | 100           | 100           |
-And a passenger 'Jone'
-When Jone books a flight with 3 baggage
+And a passenger 'Suzy'
+When Suzy books a flight with 3 baggage
 Then she  gets charged extra baggage fees excluding entitled allowance
 
 Scenario: An Employee member with more than 3 baggage
