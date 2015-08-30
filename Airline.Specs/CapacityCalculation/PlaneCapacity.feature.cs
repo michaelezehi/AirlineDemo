@@ -494,9 +494,11 @@ testRunner.And("passengers  with details", ((string)(null)), table11, "And ");
 #line 85
 testRunner.And("airplane details", ((string)(null)), table12, "And ");
 #line 89
-testRunner.When("\'Joe\' books his flight", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("all booking is complete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 90
-testRunner.Then("he is denied access to the flight", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("\'Joe\' is denied access to the flight", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 91
+testRunner.And("8 passengers should have access to the flight", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

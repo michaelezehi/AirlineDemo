@@ -13,7 +13,6 @@ namespace Airline.Specs.CapacityCalculation
     {
         private readonly IFlightBookingService _flightBookingService;
         private FlightDetails _flightDetails;
-        private PassengerDetails _passengerUnderTest;
 
         public PlaneCapacity()
         {
@@ -51,7 +50,6 @@ namespace Airline.Specs.CapacityCalculation
         public void ThenTheAirlineCannotDepartBecauseOfInsufficientCapacity()
         {
             var hasCapacityToProceed = _flightBookingService.CanDepart();
-
             Assert.IsFalse(hasCapacityToProceed);
         }
 
@@ -59,7 +57,6 @@ namespace Airline.Specs.CapacityCalculation
         public void ThenTheAirlineCanDepartToItSDestination()
         {
             var hasCapacityToProceed = _flightBookingService.CanDepart();
-
             Assert.IsTrue(hasCapacityToProceed);
         }
 
@@ -72,24 +69,24 @@ namespace Airline.Specs.CapacityCalculation
         }
 
 
-
-        [When(@"'(.*)' books his flight")]
-        public void WhenTriesToBookHisFlight(string passengerName)
+        [Then(@"'(.*)' is denied access to the flight")]
+        public void ThenIsDeniedAccessToTheFlight(string passengerName)
         {
-            _passengerUnderTest = _flightDetails.Passengers.FirstOrDefault(x => x.FirstName == passengerName);
-            _flightBookingService.BookFlight(_flightDetails);
-        }
-
-        [Then(@"he is denied access to the flight")]
-        public void ThenHeIsDeniedAccessToTheFlight()
-        {
-            var passengerAfterFlightIsBooked = _flightDetails.Passengers.First(x => x.FirstName == _passengerUnderTest.FirstName);
-            Assert.AreEqual(_passengerUnderTest.CanBoardFlight, passengerAfterFlightIsBooked.CanBoardFlight);
+            var passengerAfterFlightIsBooked = _flightDetails.Passengers.First(x => x.FirstName == passengerName);
+            Assert.AreEqual(passengerAfterFlightIsBooked.CanBoardFlight, passengerAfterFlightIsBooked.CanBoardFlight);
 
             const int expectedPassengersDenialedAccessCount = 1;
-            var expectedCount = _flightDetails.Passengers.Count(x => !x.CanBoardFlight);
-            Assert.AreEqual(expectedPassengersDenialedAccessCount, expectedCount);
+            var denailedCount = _flightDetails.Passengers.Count(x => !x.CanBoardFlight);
+            Assert.AreEqual(expectedPassengersDenialedAccessCount, denailedCount);
         }
+
+        [Then(@"(.*) passengers should have access to the flight")]
+        public void ThenPassengersShouldHaveAccessToTheFlight(int expectedAllowedPassengerCount)
+        {
+            var denailedCount = _flightDetails.Passengers.Count(x => x.CanBoardFlight);
+            Assert.AreEqual(expectedAllowedPassengerCount, denailedCount);
+        }
+
     }
 
 }

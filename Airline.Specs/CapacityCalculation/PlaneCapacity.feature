@@ -86,7 +86,8 @@ And airplane details
 		| Name            | NumberOfSeats |
 		| Gulfstream-G550 | 8             |
 
-When 'Joe' books his flight
-Then he is denied access to the flight
+When all booking is complete
+Then 'Joe' is denied access to the flight
+And 8 passengers should have access to the flight
 
 
