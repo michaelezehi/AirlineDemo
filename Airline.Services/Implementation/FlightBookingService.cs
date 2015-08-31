@@ -7,7 +7,7 @@ using Airline.Services.Interfaces;
 
 namespace Airline.Services.Implementation
 {
-    public class FlightBookingService : IFlightBookingService, IPrintingService
+    public class FlightBookingService : IFlightBookingService
     {
         private readonly FlightDetails _flightDetails;
         private const decimal _extraBaggageCost = 75M;
@@ -63,7 +63,7 @@ namespace Airline.Services.Implementation
             return flightCost - discount;
         }
 
-        public dynamic Print()
+        public dynamic PrintFlightSummary()
         {
             return $"total-passenger-count: {_flightDetails.Passengers.Count}\r\n" +
                    $"general-passenger-count: {_flightDetails.Passengers.Count(x => x.PassengerType == PassengerType.General)}\r\n" +

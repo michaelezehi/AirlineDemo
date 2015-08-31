@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Airline.Domain;
 using Airline.Domain.enums;
 using Airline.Services.Implementation;
@@ -9,21 +11,40 @@ namespace Airline.App
     {
         static void Main(string[] args)
         {
-            var flightDetails = new FlightDetails
-            {
-                AirPlaneDetails = new AirPlaneDetails { Name = "Gulfstream-G550", NumberOfSeats = 8 },
-                Origin = "London",
-                Destination = "Dublin",
-                PassengerCost = 100,
-                TicketBasePrice = 150
-            };
+            ShowFlightCanProceed();
+
+            ShowFlightCannotProceed();
+
+            ReadLine();
+        }
+
+        private static void ShowFlightCanProceed()
+        {
+            var flightDetails = GenerateFlightDetails();
             var service = new FlightBookingService(flightDetails);
             var passengers = GenertatePassengerDetails();
             passengers.ForEach(passenger => { service.BookFlight(passenger); });
 
-            WriteLine(service.Print());
+            WriteLine(service.PrintFlightSummary());
+            ConsoleSeparator();
+        }
 
-            ReadLine();
+        private static void ShowFlightCannotProceed()
+        {
+            var flightDetails = GenerateFlightDetails();
+            var service = new FlightBookingService(flightDetails);
+            var passengers = GenertatePassengerDetails().Take(5).ToList();
+            passengers.ForEach(passenger => { service.BookFlight(passenger); });
+
+            WriteLine(service.PrintFlightSummary());
+            ConsoleSeparator();
+        }
+
+        private static void ConsoleSeparator()
+        {
+            WriteLine();
+            WriteLine("////////////////////////////////////////////////");
+            WriteLine();
         }
 
         private static List<PassengerDetails> GenertatePassengerDetails()
@@ -41,5 +62,18 @@ namespace Airline.App
 
             };
         }
+
+        private static FlightDetails GenerateFlightDetails()
+        {
+            return new FlightDetails
+            {
+                AirPlaneDetails = new AirPlaneDetails { Name = "Gulfstream-G550", NumberOfSeats = 8 },
+                Origin = "London",
+                Destination = "Dublin",
+                PassengerCost = 100,
+                TicketBasePrice = 150
+            };
+        }
     }
+  
 }
