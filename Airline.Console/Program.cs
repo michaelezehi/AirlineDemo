@@ -11,29 +11,16 @@ namespace Airline.App
     {
         static void Main(string[] args)
         {
-            ShowFlightCanProceed();
-
-            ShowFlightCannotProceed();
-
+            ShowFlightDetails();
+            ShowFlightDetails(5);
             ReadLine();
         }
 
-        private static void ShowFlightCanProceed()
+        private static void ShowFlightDetails(int numberOfPassengersToTake = 8)
         {
             var flightDetails = GenerateFlightDetails();
             var service = new FlightBookingService(flightDetails);
-            var passengers = GenertatePassengerDetails();
-            passengers.ForEach(passenger => { service.BookFlight(passenger); });
-
-            WriteLine(service.PrintFlightSummary());
-            ConsoleSeparator();
-        }
-
-        private static void ShowFlightCannotProceed()
-        {
-            var flightDetails = GenerateFlightDetails();
-            var service = new FlightBookingService(flightDetails);
-            var passengers = GenertatePassengerDetails().Take(5).ToList();
+            var passengers = GenertatePassengerDetails().Take(numberOfPassengersToTake).ToList();
             passengers.ForEach(passenger => { service.BookFlight(passenger); });
 
             WriteLine(service.PrintFlightSummary());
@@ -75,5 +62,5 @@ namespace Airline.App
             };
         }
     }
-  
+
 }
