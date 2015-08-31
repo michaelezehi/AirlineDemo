@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Airline.Domain;
 using Airline.Domain.enums;
@@ -34,7 +33,7 @@ namespace Airline.App
             WriteLine();
         }
 
-        private static List<PassengerDetails> GenertatePassengerDetails()
+        private static IEnumerable<PassengerDetails> GenertatePassengerDetails()
         {
             return new List<PassengerDetails>
             {
