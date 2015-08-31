@@ -35,7 +35,7 @@ namespace Airline.Services.Implementation
         public void BookFlight(PassengerDetails passengerDetails)
         {
             _flightDetails.Passengers.Add(passengerDetails);
-            GrantAccessToPassengersIntoPlane(_flightDetails.Passengers);
+            GrantAccessToPassengerIntoPlane(passengerDetails);
         }
 
         public decimal GetPassengerDiscount(string passengerName)
@@ -77,14 +77,16 @@ namespace Airline.Services.Implementation
                    $"can-flight-proceed: {CanDepart()}\r\n";
         }
 
-        private void GrantAccessToPassengersIntoPlane(IEnumerable<PassengerDetails> passengers)
+        private void GrantAccessToPassengerIntoPlane(PassengerDetails passenger)
         {
-            if (_flightDetails.AirPlaneDetails == null)
-                return;
-            var airplaneCount = _flightDetails.AirPlaneDetails.NumberOfSeats;
+            if (MaxCapacityNotReached())
+                passenger.CanBoardFlight = true;
+        }
 
-            passengers.Take(airplaneCount).ToList()
-                .ForEach(p => { p.CanBoardFlight = true; });
+        private bool MaxCapacityNotReached()
+        {
+            return _flightDetails.AirPlaneDetails != null
+                 && _flightDetails.Passengers.Count <= _flightDetails.AirPlaneDetails.NumberOfSeats;
         }
 
         private static bool IsAirlineEmployee(PassengerDetails passenger)
