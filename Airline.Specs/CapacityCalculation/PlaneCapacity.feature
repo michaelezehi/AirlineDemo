@@ -68,7 +68,7 @@ Then the airline expected revenue should be 950
 
 
 
-Scenario: An airplane with expected capacity (8) should exceed the total cost of the flight
+Scenario: An airplane with expected capacity (8) adjusted revenue should exceed the total cost of the flight
 Given flight with details
 		| Origin | Destination | TicketBasePrice | PassengerCost |
 		| London | Dublin      | 150             | 100           |

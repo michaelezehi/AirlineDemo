@@ -372,12 +372,12 @@ testRunner.Then("the airline expected revenue should be 950", ((string)(null)), 
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("An airplane with expected capacity (8) should exceed the total cost of the flight" +
-            "")]
-        public virtual void AnAirplaneWithExpectedCapacity8ShouldExceedTheTotalCostOfTheFlight()
+        [NUnit.Framework.DescriptionAttribute("An airplane with expected capacity (8) adjusted revenue should exceed the total c" +
+            "ost of the flight")]
+        public virtual void AnAirplaneWithExpectedCapacity8AdjustedRevenueShouldExceedTheTotalCostOfTheFlight()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("An airplane with expected capacity (8) should exceed the total cost of the flight" +
-                    "", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("An airplane with expected capacity (8) adjusted revenue should exceed the total c" +
+                    "ost of the flight", ((string[])(null)));
 #line 71
 this.ScenarioSetup(scenarioInfo);
 #line hidden
