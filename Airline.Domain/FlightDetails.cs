@@ -13,7 +13,7 @@ namespace Airline.Domain
         public string Destination { get; set; }
         public AirPlaneDetails AirPlaneDetails { get; set; }
 
-        public List<PassengerDetails> Passengers { get; set; }
+        public IList<PassengerDetails> Passengers { get; set; }
     }
 
 

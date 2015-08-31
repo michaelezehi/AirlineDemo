@@ -72,16 +72,16 @@ Given flight with details
 		| Origin | Destination | TicketBasePrice | PassengerCost |
 		| London | Dublin      | 150             | 100           |
 And  passengers  with details
-		| FirstName | Age | PassengerType | LoyaltyPoints | Baggage | IsUsingLoyaltyPoint | IsUsingExtraBaggageAllowance | CanBoardFlight |
-		| Mark      | 35  | General       | 0             | 1       | false               | false                        | true           |
-		| Tom       | 15  | General       | 0             | 1       | false               | false                        | true           |
-		| James     | 72  | General       | 0             | 1       | false               | false                        | true           |
-		| Trevor    | 54  | Employee      | 0             | 1       | false               | false                        | true           |
-		| Alan      | 65  | Loyalty       | 50            | 1       | false               | false                        | true           |
-		| Suzy      | 21  | Loyalty       | 40            | 2       | false               | true                         | true           |
-		| Jone      | 56  | Loyalty       | 100           | 1       | true                | false                        | true           |
-		| Jack      | 50  | General       | 0             | 1       | false               | false                        | true           |
-		| Joe       | 18  | General       | 0             | 1       | false               | false                        | false          |
+		| FirstName | Age | PassengerType | LoyaltyPoints | Baggage | IsUsingLoyaltyPoint | IsUsingExtraBaggageAllowance | 
+		| Mark      | 35  | General       | 0             | 1       | false               | false                        | 
+		| Tom       | 15  | General       | 0             | 1       | false               | false                        | 
+		| James     | 72  | General       | 0             | 1       | false               | false                        | 
+		| Trevor    | 54  | Employee      | 0             | 1       | false               | false                        | 
+		| Alan      | 65  | Loyalty       | 50            | 1       | false               | false                        | 
+		| Suzy      | 21  | Loyalty       | 40            | 2       | false               | true                         | 
+		| Jone      | 56  | Loyalty       | 100           | 1       | true                | false                        | 
+		| Jack      | 50  | General       | 0             | 1       | false               | false                        | 
+		| Joe       | 18  | General       | 0             | 1       | false               | false                        | 
 And airplane details
 		| Name            | NumberOfSeats |
 		| Gulfstream-G550 | 8             |
@@ -89,5 +89,3 @@ And airplane details
 When all booking is complete
 Then 'Joe' is denied access to the flight
 And 8 passengers should have access to the flight
-
-

@@ -12,15 +12,10 @@ namespace Airline.Specs.FareCalculation
     [Binding]
     public sealed class FlightBooking
     {
-        private readonly IFlightBookingService _flightBookingService;
+        private IFlightBookingService _flightBookingService;
         private PassengerDetails _passengerUnderTest;
         private FlightDetails _flightDetails;
 
-        public FlightBooking()
-        {
-            _flightBookingService = new FlightBookingService();
-           
-        }
 
         [Given(@"a passenger '(.*)'")]
         public void GivenAPassenger(string passengerName)
@@ -34,16 +29,23 @@ namespace Airline.Specs.FareCalculation
         public void GivenFlightDetails(Table table)
         {
             _flightDetails = table.CreateInstance<FlightDetails>();
-            _flightDetails.Passengers = FakeGenerator.GenertatePassengerDetails();
+            _flightBookingService = new FlightBookingService(_flightDetails);
         }
 
 
         [When(@"(.*) books a flight with (.*) baggage")]
         public void WhenHeBooksAFlight(string passengerName, int baggageQty)
         {
-           var passenger = _flightDetails.Passengers.First(x => x.FirstName == passengerName);
-            passenger.Baggage = baggageQty;
-            _flightBookingService.BookFlight(_flightDetails);
+            var passengers = FakeGenerator.GenertatePassengerDetails();
+
+            var passengerUnderTest = passengers.FirstOrDefault(x => x.FirstName == passengerName);
+            if (passengerUnderTest != null)
+                passengerUnderTest.Baggage = baggageQty;
+
+            foreach (var passenger in passengers)
+            {
+                _flightBookingService.BookFlight(passenger);
+            }
         }
 
         [Then(@"he does not get any discount on his fares")]

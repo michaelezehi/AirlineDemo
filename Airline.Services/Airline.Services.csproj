@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Implementation\FlightBookingService.cs" />
     <Compile Include="Interfaces\IFlightBookingService.cs" />
+    <Compile Include="Interfaces\IPrintingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

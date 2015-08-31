@@ -399,8 +399,7 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "LoyaltyPoints",
                         "Baggage",
                         "IsUsingLoyaltyPoint",
-                        "IsUsingExtraBaggageAllowance",
-                        "CanBoardFlight"});
+                        "IsUsingExtraBaggageAllowance"});
             table11.AddRow(new string[] {
                         "Mark",
                         "35",
@@ -408,8 +407,7 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "0",
                         "1",
                         "false",
-                        "false",
-                        "true"});
+                        "false"});
             table11.AddRow(new string[] {
                         "Tom",
                         "15",
@@ -417,8 +415,7 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "0",
                         "1",
                         "false",
-                        "false",
-                        "true"});
+                        "false"});
             table11.AddRow(new string[] {
                         "James",
                         "72",
@@ -426,8 +423,7 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "0",
                         "1",
                         "false",
-                        "false",
-                        "true"});
+                        "false"});
             table11.AddRow(new string[] {
                         "Trevor",
                         "54",
@@ -435,8 +431,7 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "0",
                         "1",
                         "false",
-                        "false",
-                        "true"});
+                        "false"});
             table11.AddRow(new string[] {
                         "Alan",
                         "65",
@@ -444,8 +439,7 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "50",
                         "1",
                         "false",
-                        "false",
-                        "true"});
+                        "false"});
             table11.AddRow(new string[] {
                         "Suzy",
                         "21",
@@ -453,7 +447,6 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "40",
                         "2",
                         "false",
-                        "true",
                         "true"});
             table11.AddRow(new string[] {
                         "Jone",
@@ -462,8 +455,7 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "100",
                         "1",
                         "true",
-                        "false",
-                        "true"});
+                        "false"});
             table11.AddRow(new string[] {
                         "Jack",
                         "50",
@@ -471,15 +463,13 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "0",
                         "1",
                         "false",
-                        "false",
-                        "true"});
+                        "false"});
             table11.AddRow(new string[] {
                         "Joe",
                         "18",
                         "General",
                         "0",
                         "1",
-                        "false",
                         "false",
                         "false"});
 #line 74

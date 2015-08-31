@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Airline.Domain;
 using Airline.Services.Implementation;
 using Airline.Services.Interfaces;
@@ -11,26 +12,22 @@ namespace Airline.Specs.CapacityCalculation
     [Binding]
     public sealed class PlaneCapacity
     {
-        private readonly IFlightBookingService _flightBookingService;
+        private IFlightBookingService _flightBookingService;
         private FlightDetails _flightDetails;
+        private List<PassengerDetails> _passengers;
 
-        public PlaneCapacity()
-        {
-            _flightBookingService = new FlightBookingService();
-        }
 
         [Given(@"passengers  with details")]
         public void GivenPassengersWithDetails(Table table)
         {
-            var passengers = table.CreateSet<PassengerDetails>().ToList();
-            _flightDetails.Passengers = passengers;
+            _passengers = table.CreateSet<PassengerDetails>().ToList();
         }
 
         [Given(@"flight with details")]
         public void GivenFlightWithDetails(Table table)
         {
-            var flightDetails = table.CreateInstance<FlightDetails>();
-            _flightDetails = flightDetails;
+            _flightDetails = table.CreateInstance<FlightDetails>();
+            _flightBookingService = new FlightBookingService(_flightDetails);
         }
 
         [Given(@"airplane details")]
@@ -43,8 +40,12 @@ namespace Airline.Specs.CapacityCalculation
         [When(@"all booking is complete")]
         public void WhenTheBookingIsComplete()
         {
-            _flightBookingService.BookFlight(_flightDetails);
+            foreach (var passenger in _passengers)
+            {
+                _flightBookingService.BookFlight(passenger);
+            }
         }
+
 
         [Then(@"the airline cannot depart because of insufficient capacity")]
         public void ThenTheAirlineCannotDepartBecauseOfInsufficientCapacity()

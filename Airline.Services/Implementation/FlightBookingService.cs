@@ -7,13 +7,21 @@ using Airline.Services.Interfaces;
 
 namespace Airline.Services.Implementation
 {
-    public class FlightBookingService : IFlightBookingService
+    public class FlightBookingService : IFlightBookingService, IPrintingService
     {
-        private FlightDetails _flightDetails;
+        private readonly FlightDetails _flightDetails;
         private const decimal _extraBaggageCost = 75M;
         private const int _defaultBaggageQuantitiy = 1;
         private const int _minimumPlaneCapacity = 75;
         private const int _loyaltyMemberMaxBaggageQuantitiy = 2;
+        private const decimal _airFlightCost = 150;
+
+
+        public FlightBookingService(FlightDetails flightDetails)
+        {
+            _flightDetails = flightDetails;
+            _flightDetails.Passengers = new List<PassengerDetails>();
+        }
 
         public decimal TotalFlightRevenue
         {
@@ -24,25 +32,11 @@ namespace Airline.Services.Implementation
             }
         }
 
-
-        public void BookFlight(FlightDetails flightDetails)
+        public void BookFlight(PassengerDetails passengerDetails)
         {
-            _flightDetails = flightDetails;
+            _flightDetails.Passengers.Add(passengerDetails);
             GrantAccessToPassengersIntoPlane(_flightDetails.Passengers);
         }
-
-        private void GrantAccessToPassengersIntoPlane(IEnumerable<PassengerDetails> passengers)
-        {
-            if (_flightDetails.AirPlaneDetails == null)
-                return;
-            var airplaneCount = _flightDetails.AirPlaneDetails.NumberOfSeats;
-            passengers.Take(airplaneCount).ToList().ForEach(
-                (p) =>
-                {
-                    p.CanBoardFlight = true;
-                });
-        }
-
 
         public decimal GetPassengerDiscount(string passengerName)
         {
@@ -59,7 +53,7 @@ namespace Airline.Services.Implementation
 
         public decimal TotalBookingPrice(string passengerName)
         {
-            var passenger = _flightDetails.Passengers.First(x => x.FirstName == passengerName);
+            var passenger = _flightDetails.Passengers.FirstOrDefault(x => x.FirstName == passengerName);
             if (IsAirlineEmployee(passenger))
                 return 0;
 
@@ -67,6 +61,30 @@ namespace Airline.Services.Implementation
             var flightCost = _flightDetails.TicketBasePrice + CalculateAdditionalBaggageCharges(passenger);
 
             return flightCost - discount;
+        }
+
+        public dynamic Print()
+        {
+            return $"total-passenger-count: {_flightDetails.Passengers.Count}\r\n" +
+                   $"general-passenger-count: {_flightDetails.Passengers.Count(x => x.PassengerType == PassengerType.General)}\r\n" +
+                   $"airline-passenger-count: {_flightDetails.Passengers.Count(x => x.PassengerType == PassengerType.Employee)}\r\n" +
+                   $"loyalty-passenger-count : {_flightDetails.Passengers.Count(x => x.PassengerType == PassengerType.Loyalty)}\r\n" +
+                   $"total-number-of-bags:  {_flightDetails.Passengers.Sum(x => x.Baggage)}\r\n" +
+                   $"total-loyalty-points-redeemed: {_flightDetails.Passengers.Where(x => x.IsUsingLoyaltyPoint).Sum(x => x.LoyaltyPoints)}\r\n" +
+                   $"total-cost-of-flight: {_flightDetails.Passengers.Sum(x => TotalBookingPrice(x.FirstName))}\r\n" +
+                   $"total-unadjusted-ticket-revenue: {_flightDetails.Passengers.Count * _airFlightCost}\r\n" +
+                   $"total-adjusted-revenue: {_flightDetails.Passengers.Sum(x => TotalBookingPrice(x.FirstName))}\r\n" +
+                   $"can-flight-proceed: {CanDepart()}\r\n";
+        }
+
+        private void GrantAccessToPassengersIntoPlane(IEnumerable<PassengerDetails> passengers)
+        {
+            if (_flightDetails.AirPlaneDetails == null)
+                return;
+            var airplaneCount = _flightDetails.AirPlaneDetails.NumberOfSeats;
+
+            passengers.Take(airplaneCount).ToList()
+                .ForEach(p => { p.CanBoardFlight = true; });
         }
 
         private static bool IsAirlineEmployee(PassengerDetails passenger)
@@ -113,6 +131,5 @@ namespace Airline.Services.Implementation
             return passenger.PassengerType != PassengerType.Loyalty ||
                    !passenger.IsUsingExtraBaggageAllowance;
         }
-
     }
 }
