@@ -54,7 +54,9 @@ namespace Airline.Services.Implementation
         public decimal TotalBookingPrice(string passengerName)
         {
             var passenger = _flightDetails.Passengers.FirstOrDefault(x => x.FirstName == passengerName);
-            if (IsAirlineEmployee(passenger))
+            if (passenger == null) return 0;
+
+            if (IsAirlineEmployee(passenger.PassengerType))
                 return 0;
 
             var discount = GetPassengerDiscount(passengerName);
@@ -89,9 +91,9 @@ namespace Airline.Services.Implementation
                  && _flightDetails.Passengers.Count <= _flightDetails.AirPlaneDetails.NumberOfSeats;
         }
 
-        private static bool IsAirlineEmployee(PassengerDetails passenger)
+        private static bool IsAirlineEmployee(PassengerType passengerType)
         {
-            return passenger.PassengerType == PassengerType.Employee;
+            return passengerType == PassengerType.Employee;
         }
 
         private decimal CalculateFlightPercentage()
@@ -116,16 +118,16 @@ namespace Airline.Services.Implementation
                 return _extraBaggageCost * additionalBaggage;
             }
 
-            if (IsLoyaltyMemberAndWithinBaggageAllowance(passenger))
+            if (IsWithinLoyaltyMemberBaggageAllowance(passenger.Baggage))
                 return 0;
 
             additionalBaggage = passenger.Baggage - _loyaltyMemberMaxBaggageQuantitiy;
             return _extraBaggageCost * additionalBaggage;
         }
 
-        private static bool IsLoyaltyMemberAndWithinBaggageAllowance(PassengerDetails passenger)
+        private static bool IsWithinLoyaltyMemberBaggageAllowance(int baggage)
         {
-            return passenger.Baggage <= _loyaltyMemberMaxBaggageQuantitiy;
+            return baggage <= _loyaltyMemberMaxBaggageQuantitiy;
         }
 
         private static bool IsNotLoyaltyMemberAndIsNotUsingExtraBaggageAllowance(PassengerDetails passenger)
