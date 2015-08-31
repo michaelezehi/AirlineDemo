@@ -15,6 +15,7 @@ namespace Airline.Services.Implementation
         private const int _minimumPlaneCapacity = 75;
         private const int _loyaltyMemberMaxBaggageQuantitiy = 2;
         private const decimal _airFlightCost = 150;
+        private const decimal _passengerCost = 100;
 
 
         public FlightBookingService(FlightDetails flightDetails)
@@ -48,7 +49,8 @@ namespace Airline.Services.Implementation
         public bool CanDepart()
         {
             var currentPlaneCapacity = CalculateFlightPercentage();
-            return currentPlaneCapacity >= _minimumPlaneCapacity;
+            return currentPlaneCapacity >= _minimumPlaneCapacity 
+                && TotalFlightRevenue > _flightDetails.Passengers.Count * _passengerCost;
         }
 
         public decimal TotalBookingPrice(string passengerName)

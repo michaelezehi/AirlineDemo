@@ -88,6 +88,13 @@ namespace Airline.Specs.CapacityCalculation
             Assert.AreEqual(expectedAllowedPassengerCount, denailedCount);
         }
 
+        [Then(@"the adjusted revenue should exceed airline total cost of (.*)")]
+        public void ThenTheAdjustedRevenueShouldExceedAirlineTotalCostOf(int expectedAirlineCost)
+        {
+            var adjustedCostIsGreaterThanAirlineCost = _flightBookingService.TotalFlightRevenue > expectedAirlineCost;
+            Assert.IsTrue(adjustedCostIsGreaterThanAirlineCost);
+        }
+
     }
 
 }

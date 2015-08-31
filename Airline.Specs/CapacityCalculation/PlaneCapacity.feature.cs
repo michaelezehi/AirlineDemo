@@ -372,11 +372,13 @@ testRunner.Then("the airline expected revenue should be 950", ((string)(null)), 
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("An additional passenger Joe tries to book after the plane capacity is reached")]
-        public virtual void AnAdditionalPassengerJoeTriesToBookAfterThePlaneCapacityIsReached()
+        [NUnit.Framework.DescriptionAttribute("An airplane with expected capacity (8) should exceed the total cost of the flight" +
+            "")]
+        public virtual void AnAirplaneWithExpectedCapacity8ShouldExceedTheTotalCostOfTheFlight()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("An additional passenger Joe tries to book after the plane capacity is reached", ((string[])(null)));
-#line 70
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("An airplane with expected capacity (8) should exceed the total cost of the flight" +
+                    "", ((string[])(null)));
+#line 71
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -389,7 +391,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Dublin",
                         "150",
                         "100"});
-#line 71
+#line 72
 testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
@@ -464,15 +466,7 @@ testRunner.Given("flight with details", ((string)(null)), table10, "Given ");
                         "1",
                         "false",
                         "false"});
-            table11.AddRow(new string[] {
-                        "Joe",
-                        "18",
-                        "General",
-                        "0",
-                        "1",
-                        "false",
-                        "false"});
-#line 74
+#line 75
 testRunner.And("passengers  with details", ((string)(null)), table11, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -486,8 +480,128 @@ testRunner.And("airplane details", ((string)(null)), table12, "And ");
 #line 89
 testRunner.When("all booking is complete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 90
+testRunner.Then("the adjusted revenue should exceed airline total cost of 800", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("An additional passenger Joe tries to book after the plane capacity is reached")]
+        public virtual void AnAdditionalPassengerJoeTriesToBookAfterThePlaneCapacityIsReached()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("An additional passenger Joe tries to book after the plane capacity is reached", ((string[])(null)));
+#line 93
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Origin",
+                        "Destination",
+                        "TicketBasePrice",
+                        "PassengerCost"});
+            table13.AddRow(new string[] {
+                        "London",
+                        "Dublin",
+                        "150",
+                        "100"});
+#line 94
+testRunner.Given("flight with details", ((string)(null)), table13, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FirstName",
+                        "Age",
+                        "PassengerType",
+                        "LoyaltyPoints",
+                        "Baggage",
+                        "IsUsingLoyaltyPoint",
+                        "IsUsingExtraBaggageAllowance"});
+            table14.AddRow(new string[] {
+                        "Mark",
+                        "35",
+                        "General",
+                        "0",
+                        "1",
+                        "false",
+                        "false"});
+            table14.AddRow(new string[] {
+                        "Tom",
+                        "15",
+                        "General",
+                        "0",
+                        "1",
+                        "false",
+                        "false"});
+            table14.AddRow(new string[] {
+                        "James",
+                        "72",
+                        "General",
+                        "0",
+                        "1",
+                        "false",
+                        "false"});
+            table14.AddRow(new string[] {
+                        "Trevor",
+                        "54",
+                        "Employee",
+                        "0",
+                        "1",
+                        "false",
+                        "false"});
+            table14.AddRow(new string[] {
+                        "Alan",
+                        "65",
+                        "Loyalty",
+                        "50",
+                        "1",
+                        "false",
+                        "false"});
+            table14.AddRow(new string[] {
+                        "Suzy",
+                        "21",
+                        "Loyalty",
+                        "40",
+                        "2",
+                        "false",
+                        "true"});
+            table14.AddRow(new string[] {
+                        "Jone",
+                        "56",
+                        "Loyalty",
+                        "100",
+                        "1",
+                        "true",
+                        "false"});
+            table14.AddRow(new string[] {
+                        "Jack",
+                        "50",
+                        "General",
+                        "0",
+                        "1",
+                        "false",
+                        "false"});
+            table14.AddRow(new string[] {
+                        "Joe",
+                        "18",
+                        "General",
+                        "0",
+                        "1",
+                        "false",
+                        "false"});
+#line 97
+testRunner.And("passengers  with details", ((string)(null)), table14, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "NumberOfSeats"});
+            table15.AddRow(new string[] {
+                        "Gulfstream-G550",
+                        "8"});
+#line 108
+testRunner.And("airplane details", ((string)(null)), table15, "And ");
+#line 112
+testRunner.When("all booking is complete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 113
 testRunner.Then("\'Joe\' is denied access to the flight", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 91
+#line 114
 testRunner.And("8 passengers should have access to the flight", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
