@@ -9,4 +9,4 @@ To make the following application work, do the following:
 and install "Specflow for Visual Studio 2015"
 3. Rebuild/build the application it should automatically retrieve the relevant nugget packages
 4. Run tests
-5. All the tests should pass. Now give me a round of applause! :-)
+5. All the tests should pass.
