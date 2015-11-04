@@ -11,64 +11,54 @@ Your task is to write a console application that accepts two filenames as input.
 
 The format of the input file is set of text lines that represent either plane, route or passenger information. Your program should read each line in the input file and process each instruction. The format of each instruction line is as follows in ABNF:
 
-	instruction = add-route / add-aircraft / add-passenger-details
-	add-route = "add route" SP origin SP destination SP cost-per-passenger SP ticket-price SP minimum-takeof-load-percentage CRLF
-	add-aircraft = "add aircraft" SP aircraft-title SP number-of-seats CRLF
-	add-passenger = "add" SP (general-passenger / airline-passenger / loyalty-passenger) CRLF
+instruction = add-route / add-aircraft / add-passenger-details
+add-route = "add route" SP origin SP destination SP cost-per-passenger SP ticket-price SP minimum-takeof-load-percentage CRLF
+add-aircraft = "add aircraft" SP aircraft-title SP number-of-seats CRLF
+add-passenger = "add" SP (general-passenger / airline-passenger / loyalty-passenger) CRLF
 
-	general-passenger = "general" SP first-name SP age
-	airline-passenger = "airline" SP first-name SP age
-	loyalty-passenger = "loyalty" SP first-name SP current-loyalty-points SP using-loyalty-points SP using-extra-baggage
-
-	origin = identifier								; the name of the origin city.
-	destination = identifier    					; the name of the destination city.
-	cost-per-passenger = numeric					; the cost to the airline, per passenger, of flying the route in whole £.
-	ticket-price = numeric							; the price of the ticket at face value in whole £.
-	minimum-takeof-load-percentage = percentage		; the minimum percent of the planes capacity that must be used for the 
-													; route to be able to fly.
-
-	aircraft-title = identifier 					; the name of the plane.
-	number-of-seats = numeric						; the total number of seats in the plane.
-
-	first-name =  identifier						; the first name of the passenger.
-	age = numeric									; the age of the passenger in years.
-
-	current-loyalty-points = numeric				; the number of loyalty points the customer currently has, before 
-													; embarking on the current flight.
-	using-loyalty-point = boolean					; whether or not the passenger is using their loyalty points to pay 
-													; for the flight. if the number of loyalty points is less than the 
-													; ticket cost then the customer pays the remainder
-	using-extra-baggage	= boolean					; whether or not the passenger is using their extra baggage allowance.
-
-	percentage = %d0-100
-	identifier = 1*ALPHA 
-	numeric = 1*DIGIT
-	boolean = "TRUE" / "FALSE"
+general-passenger = "general" SP first-name SP age
+airline-passenger = "airline" SP first-name SP age
+loyalty-passenger = "loyalty" SP first-name SP current-loyalty-points SP using-loyalty-points SP using-extra-baggage
+origin = identifier				; the name of the origin city.
+destination = identifier    			; the name of the destination city.
+cost-per-passenger = numeric			; the cost to the airline, per passenger, of flying the route in whole £.
+ticket-price = numeric				; the price of the ticket at face value in whole £.
+minimum-takeof-load-percentage = percentage	; the minimum percent of the planes capacity that must be used for the route to be able to fly.
+aircraft-title = identifier 			; the name of the plane.
+number-of-seats = numeric			; the total number of seats in the plane.
+first-name =  identifier			; the first name of the passenger.
+age = numeric					; the age of the passenger in years.
+current-loyalty-points = numeric		; the number of loyalty points the customer currently has, before embarking on the current flight.
+using-loyalty-point = boolean			; whether or not the passenger is using their loyalty points to pay for the flight. if the number of loyalty points is less than the ticket cost then the customer pays the remainder
+using-extra-baggage = boolean			; whether or not the passenger is using their extra baggage allowance.
+percentage = %d0-100
+identifier = 1*ALPHA 
+numeric = 1*DIGIT
+boolean = "TRUE" / "FALSE"
 
 Your program should read every line in the input file and when it reaches the end of file it should compute the flight summary report and output the report into a file in the following format, again in ABNF:
+output-line = 	total-passenger-count SP	
+		general-passenger-count SP 
+		airline-passenger-count SP 
+		loyalty-passenger-count SP 
+		total-number-of-bags SP
+		total-loyalty-points-redeemed SP	
+		total-cost-of-flight SP 
+		total-unadjusted-ticket-revenue	SP 
+		total-adjusted-revenue SP 
+		can-flight-proceed 
 	
-	output-line = 	total-passenger-count SP	
-					general-passenger-count SP 
-					airline-passenger-count SP 
-					loyalty-passenger-count SP 
-					total-number-of-bags SP
-					total-loyalty-points-redeemed SP	
-					total-cost-of-flight SP 
-					total-unadjusted-ticket-revenue	SP 
-					total-adjusted-revenue SP 
-					can-flight-proceed 
 	
-	
-	total-passenger-count = numeric 				; total number of passengers on the flight
-	general-passenger-count = numeric				; number of general passengers on the flight
-	airline-passenger-count = numeric				; number of airline passengers on the flight
-	loyalty-passenger-count numeric					; number of loyalty passengers on the flight
-	total-number-of-bags = numeric					; the total number of bags on the plane
-	total-loyalty-points-redeemed = numeric			; the total number of loyalty points redeemed by all passengers
-	total-cost-of-flight = numeric 					; the total cost to the airline of running the flight
-	total-unadjusted-ticket-revenue	= numeric		; the total ticket revenue, ignoring loyalty and airline passenger adjustments.
-	total-adjusted-revenue = numeric				; the total ticket revenue, after adjusting for loyalty members points and airline passengers
-	can-flight-proceed = boolean					; can the flight proceed, according to the rules defined below
+total-passenger-count = numeric 		; total number of passengers on the flight
+general-passenger-count = numeric		; number of general passengers on the flight
+airline-passenger-count = numeric		; number of airline passengers on the flight
+loyalty-passenger-count numeric			; number of loyalty passengers on the flight
+total-number-of-bags = numeric			; the total number of bags on the plane
+total-loyalty-points-redeemed = numeric		; the total number of loyalty points redeemed by all passengers
+total-cost-of-flight = numeric 			; the total cost to the airline of running the flight
+total-unadjusted-ticket-revenue	= numeric	; the total ticket revenue, ignoring loyalty and airline passenger adjustments.
+total-adjusted-revenue = numeric		; the total ticket revenue, after adjusting for loyalty members points and airline passengers
+can-flight-proceed = boolean			; can the flight proceed, according to the rules defined below
 	
 	numeric = ["-"] 1*DIGIT
 	boolean = "TRUE" / "FALSE"
